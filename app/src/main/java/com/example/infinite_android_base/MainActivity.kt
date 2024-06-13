@@ -11,7 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.currentRecomposeScope
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,11 +48,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     val userViewModel:UserViewModel = viewModel()
-    userViewModel.userViewMode.observe(LocalLifecycleOwner.current, Observer {
-        println("${userViewModel.userViewMode.value}")
-    })
+//    userViewModel.userViewMode.observe(LocalLifecycleOwner.current, Observer {
+//        println("${userViewModel.userViewMode.value}")
+//    })
     Text(
-        text = "Hello $name! ${userViewModel.userViewMode.value?.name}",
+        text = "Hello $name! ${userViewModel.userViewMode.value.name}",
         modifier = modifier.clickable {
             println("modifier.clickable ${userViewModel.userViewMode.value}")
             userViewModel.userViewMode.value= UserModel("Joyce")
