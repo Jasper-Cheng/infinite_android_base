@@ -48,7 +48,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     val userViewModel:UserViewModel = viewModel()
     val model by userViewModel.userViewMode.collectAsState()
     Text(
-        text = "Hello ${userViewModel.userViewMode.value.name}!",
+        text = "Hello ${model.name}!",
         modifier = modifier.clickable {
             println("Name Text clickable")
             userViewModel.updateName("JJJJJ")
@@ -58,11 +58,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 @Composable
 fun Greeting2(name: String, modifier: Modifier = Modifier) {
-    println("Password Greeting2")
+    println("Password Greeting")
     val userViewModel:UserViewModel = viewModel()
     val model by userViewModel.userViewMode.collectAsState()
     Text(
-        text = "Hello ${userViewModel.userViewMode.value.password}!",
+        text = "Hello ${model.password}!",
         modifier = modifier.clickable {
             println("Password Text clickable")
             userViewModel.updatePassword("AAAAAA")
