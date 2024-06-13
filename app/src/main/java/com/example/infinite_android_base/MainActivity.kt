@@ -14,8 +14,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.infinite_android_base.ui.theme.Infinite_android_baseTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,12 +39,23 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     val uiViewModel:UiViewModel = viewModel()
-    val uiState by uiViewModel.uiState.collectAsState()
-
+//    uiViewModel.viewModelScope.launch {
+//        uiViewModel.uiState.collect{
+//            when (it){
+//                UiState.Idle -> {
+//
+//                }
+//                is UiState.NormalUpdate -> {
+//
+//                }
+//            }
+//        }
+//    }
     Text(
-        text = "Hello ${uiState.name}!",
+        text = "Hello ${uiViewModel.uiState.value}!",
         modifier = modifier.clickable {
-            uiViewModel.updateName()
+            println("Text clickable")
+            uiViewModel.sendIntent(LoginIntent.NameChanged("AAAAA"))
         }
     )
 }
