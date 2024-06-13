@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -14,10 +15,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.infinite_android_base.ui.theme.Infinite_android_baseTheme
-import kotlinx.coroutines.launch
+import com.example.infinite_android_base.viewmodel.UserViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +26,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             Infinite_android_baseTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    Column {
+                        Greeting(
+                            name = "Android",
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                        Greeting2(
+                            name = "Android",
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
                 }
             }
         }
@@ -38,24 +44,28 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val uiViewModel:UiViewModel = viewModel()
-//    uiViewModel.viewModelScope.launch {
-//        uiViewModel.uiState.collect{
-//            when (it){
-//                UiState.Idle -> {
-//
-//                }
-//                is UiState.NormalUpdate -> {
-//
-//                }
-//            }
-//        }
-//    }
+    println("Name Greeting")
+    val userViewModel:UserViewModel = viewModel()
+    val model by userViewModel.userViewMode.collectAsState()
     Text(
-        text = "Hello ${uiViewModel.uiState.value}!",
+        text = "Hello ${userViewModel.userViewMode.value.name}!",
         modifier = modifier.clickable {
-            println("Text clickable")
-            uiViewModel.sendIntent(LoginIntent.NameChanged("AAAAA"))
+            println("Name Text clickable")
+            userViewModel.updateName("JJJJJ")
+        }
+    )
+}
+
+@Composable
+fun Greeting2(name: String, modifier: Modifier = Modifier) {
+    println("Password Greeting2")
+    val userViewModel:UserViewModel = viewModel()
+    val model by userViewModel.userViewMode.collectAsState()
+    Text(
+        text = "Hello ${userViewModel.userViewMode.value.password}!",
+        modifier = modifier.clickable {
+            println("Password Text clickable")
+            userViewModel.updatePassword("AAAAAA")
         }
     )
 }
