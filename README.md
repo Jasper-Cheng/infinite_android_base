@@ -5,16 +5,16 @@
 ## Getting Started
 
 DONE List:
-1. 类似于MVVM架构(ViewModel、StateFlow、Compose)(没有用MVI架构是因为觉得Intent和State没有这种简洁，采用StateFlow而不是LiveData是觉得StateFlow配协程更方便)
+1. 类似于MVVM架构(ViewModel、StateFlow、Compose)(没有用MVI架构是因为觉得Intent和State过于繁琐，采用StateFlow而不是LiveData是觉得StateFlow搭配协程更方便)
 
 TODO List:
-1. 基于MVVM(lifecycle、ViewModel、LiveData、DataBinding)架构
-2. fragment管理(navigation)
-3. 通知(notifications)
-4. 桌面小组件(Glance)
-5. Compose ui(字体、颜色、主题适配)
-6. 权限(permissions)
-7. 国际化
-8. 应用报错、崩溃上报处理
-9. android启动动画和自适应图标(splashscreen)
-10. 网络封装
+1. fragment管理(navigation)
+2. 通知(notifications)
+3. 桌面小组件(Glance)
+4. Compose ui(字体、颜色、主题适配)
+5. 权限(permissions)
+6. 国际化
+7. 应用报错、崩溃上报处理
+8. android启动动画和自适应图标(splashscreen)
+9. 网络封装
+10. 数据持久化
