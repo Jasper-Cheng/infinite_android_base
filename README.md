@@ -5,7 +5,7 @@
 ## Getting Started
 
 DONE List:
-1.类似于MVVM架构(ViewModel、StateFlow、Compose)(没有用MVI架构是因为觉得Intent和State没有这种简洁)
+1. 类似于MVVM架构(ViewModel、StateFlow、Compose)(没有用MVI架构是因为觉得Intent和State没有这种简洁，采用StateFlow而不是LiveData是觉得StateFlow配协程更方便)
 
 TODO List:
 1. 基于MVVM(lifecycle、ViewModel、LiveData、DataBinding)架构
