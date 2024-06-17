@@ -18,3 +18,5 @@ TODO List:
 8. android启动动画和自适应图标(splashscreen)
 9. 网络封装
 10. 数据持久化
+11. LogUtil
+12. android签名
