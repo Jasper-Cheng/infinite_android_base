@@ -20,3 +20,6 @@ TODO List:
 9. 网络封装
 10. LogUtil
 11. android签名
+12. 屏幕适配
+13. websocket
+14. 一键登录
