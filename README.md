@@ -6,6 +6,7 @@
 
 DONE List:
 1. 类似于MVVM架构(ViewModel、StateFlow、Compose)(没有用MVI架构是因为觉得Intent和State过于繁琐，采用StateFlow而不是LiveData是觉得StateFlow搭配协程更方便)
+2. 数据持久化(room、datastore)
 
 TODO List:
 1. fragment管理(navigation)
@@ -17,6 +18,5 @@ TODO List:
 7. 应用报错、崩溃上报处理
 8. android启动动画和自适应图标(splashscreen)
 9. 网络封装
-10. 数据持久化
-11. LogUtil
-12. android签名
+10. LogUtil
+11. android签名
