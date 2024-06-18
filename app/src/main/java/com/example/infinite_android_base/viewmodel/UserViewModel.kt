@@ -14,7 +14,6 @@ class UserViewModel:ViewModel(){
 
     fun updateName(name:String){
         _userViewMode.update {
-            println("_userViewMode update $it")
             it.copy(name=name)
         }
     }

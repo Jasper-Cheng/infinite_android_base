@@ -13,11 +13,11 @@ import kotlinx.coroutines.launch
 
 class ItemViewModel(private val itemDao: ItemDao) : ViewModel() {
 
-    fun queryAllItem(): Deferred<Flow<List<Item>>> {
+    suspend fun queryAllItem(): Flow<List<Item>> {
         val items=viewModelScope.async(Dispatchers.IO) {
             itemDao.getItems()
         }
-        return items
+        return items.await()
     }
     fun addNewItem(itemName: String, itemPassword: String) {
         val newItem = getNewItemEntry(itemName, itemPassword)
