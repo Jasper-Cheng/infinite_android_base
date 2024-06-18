@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -38,6 +39,7 @@ import com.example.infinite_android_base.database.Item
 import com.example.infinite_android_base.ui.theme.Infinite_android_baseTheme
 import com.example.infinite_android_base.viewmodel.ItemViewModel
 import com.example.infinite_android_base.viewmodel.ItemViewModelFactory
+import com.example.infinite_android_base.viewmodel.PreferencesViewModel
 import com.example.infinite_android_base.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
@@ -54,7 +56,7 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             Infinite_android_baseTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize().padding(10.dp)) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)){
                         Greeting(name = "Android",)
                         RoomTest()
@@ -85,10 +87,10 @@ fun RoomTest(modifier: Modifier = Modifier){
             }
         }
         Row (){
-            OutlinedTextField(modifier = Modifier.size(width = (LocalConfiguration.current.screenWidthDp/2).dp, height = 60.dp),value = userName.value, label = { Text(text = "name")} , onValueChange = {
+            OutlinedTextField(modifier = Modifier.width(width = (LocalConfiguration.current.screenWidthDp/2).dp),value = userName.value, label = { Text(text = "name")} , onValueChange = {
                 userName.value=it
             })
-            OutlinedTextField(modifier = Modifier.size(width = (LocalConfiguration.current.screenWidthDp/2).dp, height = 60.dp),value = userPassword.value, label = { Text(text = "password")} , onValueChange = {
+            OutlinedTextField(modifier = Modifier.width(width = (LocalConfiguration.current.screenWidthDp/2).dp),value = userPassword.value, label = { Text(text = "password")} , onValueChange = {
                 userPassword.value=it
             })
         }
@@ -111,13 +113,24 @@ fun RoomTest(modifier: Modifier = Modifier){
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     println("jasper Name Greeting")
     val userViewModel:UserViewModel = viewModel()
-    val model by userViewModel.userViewMode.collectAsState()
-    Text(
-        text = "Hello ${model.name}!",
-        modifier = modifier.clickable {
-            userViewModel.updateName("JJJJJ")
-        }
-    )
+    val userModel by userViewModel.userViewMode.collectAsState()
+
+    val preferencesViewModel:PreferencesViewModel = viewModel(factory = PreferencesViewModel.Factory)
+    val preferenceModel by preferencesViewModel.likeYou.collectAsState()
+    Row(horizontalArrangement = Arrangement.SpaceEvenly){
+        Text(
+            text = "Hello ${userModel.name}!",
+            modifier = modifier.clickable {
+                userViewModel.updateName("JJJJJ")
+            }
+        )
+        Text(
+            text = "like you ${preferenceModel}!",
+            modifier = modifier.clickable {
+                preferencesViewModel.setLikeYou(!preferenceModel)
+            }
+        )
+    }
 }
 
 @Preview(showBackground = true)
