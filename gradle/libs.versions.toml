@@ -14,6 +14,7 @@ roomCompiler="2.5.1"
 roomKtx="2.5.1"
 ksp="2.0.0-1.0.22"
 datastorePreferences="1.0.0"
+accompanistPermission="0.34.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,7 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
+google-accompanist-permission = { group = "com.google.accompanist", name= "accompanist-permissions", version.ref = "accompanistPermission" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
