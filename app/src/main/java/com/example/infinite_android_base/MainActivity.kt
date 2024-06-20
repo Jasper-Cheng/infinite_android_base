@@ -12,7 +12,6 @@ import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -55,23 +54,6 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    private val permissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { _ ->
-            // 处理权限请求结果
-        }
-    private fun requestPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            permissionLauncher.launch(
-                arrayOf(READ_MEDIA_IMAGES,
-                    READ_MEDIA_VIDEO,
-                    READ_MEDIA_VISUAL_USER_SELECTED)
-            )
-        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU) {
-            permissionLauncher.launch(arrayOf(READ_MEDIA_IMAGES, READ_MEDIA_VIDEO))
-        } else {
-            permissionLauncher.launch(arrayOf(READ_EXTERNAL_STORAGE))
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -81,7 +63,6 @@ class MainActivity : ComponentActivity() {
                 println("jasper userViewModel collect $it")
             }
         }
-//        requestPermissions()
         setContent {
             Infinite_android_baseTheme {
                 Scaffold(modifier = Modifier
@@ -170,7 +151,7 @@ private fun RequestPermissionUsingAccompanist(){
     println("RequestPermissionUsingAccompanist refresh")
     var permissions = mutableListOf(READ_EXTERNAL_STORAGE)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-        permissions = mutableListOf(READ_MEDIA_VISUAL_USER_SELECTED)
+        permissions = mutableListOf(READ_MEDIA_IMAGES,READ_MEDIA_VIDEO,READ_MEDIA_VISUAL_USER_SELECTED)
     }else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU){
         permissions = mutableListOf(READ_MEDIA_IMAGES, READ_MEDIA_VIDEO)
     }
