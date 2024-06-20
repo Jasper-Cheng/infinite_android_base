@@ -13,8 +13,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +25,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -35,10 +38,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -66,12 +73,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             Infinite_android_baseTheme {
                 Scaffold(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp)) { innerPadding ->
-                    Column(modifier = Modifier.padding(innerPadding)){
-                        Greeting()
-                        RoomTest()
-                        RequestPermissionUsingAccompanist()
+                    .fillMaxSize().background(MaterialTheme.colorScheme.background)) { innerPadding ->
+                    Box (modifier = Modifier.padding(innerPadding)){
+                        Column(modifier = Modifier.padding(10.dp)){
+                            Greeting()
+                            RoomTest()
+                            RequestPermissionUsingAccompanist()
+                        }
                     }
                 }
             }
@@ -98,11 +106,11 @@ fun RoomTest() {
                 Text(text = "${itemList[it].id} ${itemList[it].name} ${itemList[it].password}")
             }
         }
-        Row (){
-            OutlinedTextField(modifier = Modifier.width(width = (LocalConfiguration.current.screenWidthDp/2).dp),value = userName.value, label = { Text(text = "name")} , onValueChange = {
+        Row (horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+            OutlinedTextField(modifier = Modifier.width(width = 200.dp),value = userName.value, label = { Text(text = "name")} , onValueChange = {
                 userName.value=it
             })
-            OutlinedTextField(modifier = Modifier.width(width = (LocalConfiguration.current.screenWidthDp/2).dp),value = userPassword.value, label = { Text(text = "password")} , onValueChange = {
+            OutlinedTextField(modifier = Modifier.width(width = 200.dp),value = userPassword.value, label = { Text(text = "password")} , onValueChange = {
                 userPassword.value=it
             })
         }
@@ -132,12 +140,16 @@ fun Greeting(modifier: Modifier = Modifier) {
     Row(horizontalArrangement = Arrangement.SpaceEvenly){
         Text(
             text = "Hello ${userModel.name}!",
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = modifier.clickable {
                 userViewModel.updateName("JJJJJ")
             }
         )
         Text(
             text = "like you ${preferenceModel}!",
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = modifier.clickable {
                 preferencesViewModel.setLikeYou(!preferenceModel)
             }
