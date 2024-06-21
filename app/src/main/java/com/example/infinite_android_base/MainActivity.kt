@@ -29,6 +29,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -43,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
@@ -59,6 +61,7 @@ import com.example.infinite_android_base.viewmodel.UserViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,12 +89,28 @@ class MainActivity : ComponentActivity() {
                                 Greeting()
                                 RoomTest()
                                 RequestPermissionUsingAccompanist()
+                                Internationalization()
                             }
                         }
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun Internationalization() {
+    println("Internationalization refresh")
+    val currentLanguage  = remember {
+        mutableStateOf(Locale.getDefault().language=="en")
+    }
+    Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically ,modifier = Modifier.fillMaxWidth()){
+        Text(stringResource(R.string.switch_language))
+        Switch(checked = currentLanguage.value, onCheckedChange = {
+            currentLanguage.value=it
+        }, modifier = Modifier.padding(horizontal = 10.dp))
+        Text(text = Locale.getDefault().language)
     }
 }
 
@@ -115,11 +134,13 @@ fun RoomTest() {
             }
         }
         Row{
-            OutlinedTextField(modifier = Modifier.weight(1f), value = userName.value, label = { Text(text = "name")} , onValueChange = {
+            OutlinedTextField(modifier = Modifier.weight(1f), value = userName.value, label = { Text(
+                stringResource(id = R.string.name))} , onValueChange = {
                 userName.value=it
             })
             Spacer(modifier = Modifier.weight(0.1f))
-            OutlinedTextField(modifier = Modifier.weight(1f),value = userPassword.value, label = { Text(text = "password")} , onValueChange = {
+            OutlinedTextField(modifier = Modifier.weight(1f),value = userPassword.value, label = { Text(
+                stringResource(id = R.string.password))} , onValueChange = {
                 userPassword.value=it
             })
         }
@@ -127,12 +148,12 @@ fun RoomTest() {
             OutlinedButton(onClick = {
                 itemViewModel.addNewItem(userName.value,userPassword.value)
             }) {
-                Text(text = "添加到Room")
+                Text(stringResource(id = R.string.add_to_room))
             }
             OutlinedButton(onClick = {
                 itemViewModel.deleteAllItem()
             }) {
-                Text(text = "删除所有Room")
+                Text(stringResource(id = R.string.delete_all_room))
             }
         }
     }
@@ -182,26 +203,25 @@ private fun RequestPermissionUsingAccompanist(){
         permissionState.launchMultiplePermissionRequest()
     }
     if(permissionState.allPermissionsGranted){
-        Text("Permission Granted.")
+        Text(stringResource(id = R.string.permission_granted))
     }else {
         Column {
             if (permissionState.shouldShowRationale) {
-                Text("The camera is important for this app. Please grant the permission.")
+                Text(stringResource(id = R.string.permission_description2))
                 Button(onClick = {
                     permissionState.launchMultiplePermissionRequest()
                 }) {
-                    Text("Request permission again")
+                    Text(stringResource(id = R.string.request_permission_again))
                 }
             }else{
-                Text("Camera permission required for this feature to be available. " +
-                        "Please grant the permission")
+                Text(stringResource(id = R.string.permission_description))
                 Button(onClick = {
                     val intent = Intent()
                     intent.action =  Settings.ACTION_APPLICATION_DETAILS_SETTINGS
                     intent.data = Uri.fromParts("package", "com.example.infinite_android_base", null)
                     mContext.startActivity(intent)
                 }) {
-                    Text("GoSetting")
+                    Text(stringResource(id = R.string.go_setting))
                 }
             }
         }

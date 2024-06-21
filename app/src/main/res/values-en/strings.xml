@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">infinite_android_base</string>
+    <string name="hello">hello</string>
+    <string name="name">name</string>
+    <string name="password">password</string>
+    <string name="add_to_room">Add To Room</string>
+    <string name="delete_all_room">Delete All Room</string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="request_permission_again">request permission again</string>
+    <string name="go_setting">go setting</string>
+    <string name="permission_description">This feature is available with the required camera permissions, please grant permission</string>
+    <string name="permission_description2">The camera is very important for this application, please grant permission</string>
+    <string name="switch_language">switch language</string>
+</resources>

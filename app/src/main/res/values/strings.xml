@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">infinite_android_base</string>
+    <string name="hello">你好</string>
+    <string name="name">名字</string>
+    <string name="password">密码</string>
+    <string name="add_to_room">添加到Room</string>
+    <string name="delete_all_room">删除所有room</string>
+    <string name="permission_granted">已授权</string>
+    <string name="request_permission_again">请再次授权</string>
+    <string name="go_setting">去设置</string>
+    <string name="permission_description">此功能可用所需的相机权限,请授予许可</string>
+    <string name="permission_description2">摄像头对此应用程序非常重要,请授予许可</string>
+    <string name="switch_language">切换语言</string>
 </resources>
