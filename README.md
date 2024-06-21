@@ -9,6 +9,7 @@ DONE List:
 2. 数据持久化(room、datastore)
 3. 权限(accompanist-permission)
 4. 主题(light、dark)、字体、颜色适配
+5. 屏幕密度、字体因子适配(CompositionLocalProvider)
 
 TODO List:
 1. fragment管理(navigation)
@@ -16,10 +17,9 @@ TODO List:
 3. 桌面小组件(Glance)
 4. 国际化
 5. 应用报错、崩溃上报处理
-6. android启动动画和自适应图标(splashscreen)
+6. android启动动画和自适应图标(splashscreen)l
 7. 网络封装
-8. LogUtil
-9. android签名
-10. 屏幕适配
-11. websocket
-12. 一键登录
+8. android签名
+9. 屏幕适配
+10. websocket
+11. 一键登录

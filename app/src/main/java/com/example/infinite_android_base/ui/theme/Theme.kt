@@ -47,4 +47,5 @@ fun Infinite_android_baseTheme(
         typography = typography,
         content = content
     )
+
 }

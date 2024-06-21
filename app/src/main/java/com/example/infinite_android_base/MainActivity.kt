@@ -19,10 +19,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -31,21 +31,21 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -73,12 +73,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             Infinite_android_baseTheme {
                 Scaffold(modifier = Modifier
-                    .fillMaxSize().background(MaterialTheme.colorScheme.background)) { innerPadding ->
-                    Box (modifier = Modifier.padding(innerPadding)){
-                        Column(modifier = Modifier.padding(10.dp)){
-                            Greeting()
-                            RoomTest()
-                            RequestPermissionUsingAccompanist()
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)) { innerPadding ->
+                    CompositionLocalProvider(
+                        LocalDensity provides Density(
+                            density = LocalContext.current.resources.displayMetrics.widthPixels / 360.0f,
+                            fontScale = (LocalConfiguration.current.fontScale*0.8).toFloat()
+                        )
+                    ){
+                        Box (modifier = Modifier.padding(innerPadding)){
+                            Column(modifier = Modifier.padding(10.dp)){
+                                Greeting()
+                                RoomTest()
+                                RequestPermissionUsingAccompanist()
+                            }
                         }
                     }
                 }
@@ -100,17 +108,18 @@ fun RoomTest() {
             itemList.addAll(it)
         }
     }
-    Column {
+    Column (horizontalAlignment = Alignment.CenterHorizontally){
         LazyColumn {
             items(itemList.size){
                 Text(text = "${itemList[it].id} ${itemList[it].name} ${itemList[it].password}")
             }
         }
-        Row (horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
-            OutlinedTextField(modifier = Modifier.width(width = 200.dp),value = userName.value, label = { Text(text = "name")} , onValueChange = {
+        Row{
+            OutlinedTextField(modifier = Modifier.weight(1f), value = userName.value, label = { Text(text = "name")} , onValueChange = {
                 userName.value=it
             })
-            OutlinedTextField(modifier = Modifier.width(width = 200.dp),value = userPassword.value, label = { Text(text = "password")} , onValueChange = {
+            Spacer(modifier = Modifier.weight(0.1f))
+            OutlinedTextField(modifier = Modifier.weight(1f),value = userPassword.value, label = { Text(text = "password")} , onValueChange = {
                 userPassword.value=it
             })
         }
@@ -137,13 +146,13 @@ fun Greeting(modifier: Modifier = Modifier) {
 
     val preferencesViewModel:PreferencesViewModel = viewModel(factory = PreferencesViewModel.Factory)
     val preferenceModel by preferencesViewModel.likeYou.collectAsState()
-    Row(horizontalArrangement = Arrangement.SpaceEvenly){
+    Row(horizontalArrangement = Arrangement.SpaceEvenly,modifier = Modifier.fillMaxWidth()){
         Text(
             text = "Hello ${userModel.name}!",
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.bodyMedium,
             modifier = modifier.clickable {
-                userViewModel.updateName("JJJJJ")
+                userViewModel.updateName("Jasper")
             }
         )
         Text(
