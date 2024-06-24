@@ -11,7 +11,7 @@ import com.example.infinite_android_base.database.UserPreferences
 class CustomApplication : Application() {
     // Using by lazy so the database and the repository are only created when they're needed
     // rather than when the application starts
-    val database: ItemRoomDatabase by lazy { ItemRoomDatabase.getDatabase(this) }
+    val roomDatabase: ItemRoomDatabase by lazy { ItemRoomDatabase.getDatabase(this) }
 
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(

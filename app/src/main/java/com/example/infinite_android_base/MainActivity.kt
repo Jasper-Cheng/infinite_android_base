@@ -119,7 +119,7 @@ fun RoomTest() {
     println("jasper RoomTest refresh")
     val userName = remember { mutableStateOf("") }
     val userPassword = remember { mutableStateOf("") }
-    val itemViewModel:ItemViewModel = viewModel(factory = ItemViewModelFactory((LocalContext.current.applicationContext as CustomApplication).database.itemDao()))
+    val itemViewModel:ItemViewModel = viewModel(factory = ItemViewModelFactory((LocalContext.current.applicationContext as CustomApplication).roomDatabase.itemDao()))
     val itemList = remember { SnapshotStateList<Item>() }
     LaunchedEffect(Unit) {
         itemViewModel.queryAllItem().collect{
