@@ -166,7 +166,7 @@ fun Greeting(modifier: Modifier = Modifier) {
     val userModel by userViewModel.userViewMode.collectAsState()
 
     val preferencesViewModel:PreferencesViewModel = viewModel(factory = PreferencesViewModel.Factory)
-    val preferenceModel by preferencesViewModel.likeYou.collectAsState()
+    val isLikeYouValue by preferencesViewModel.likeYou.collectAsState(initial = false)
     Row(horizontalArrangement = Arrangement.SpaceEvenly,modifier = Modifier.fillMaxWidth()){
         Text(
             text = "Hello ${userModel.name}!",
@@ -177,11 +177,11 @@ fun Greeting(modifier: Modifier = Modifier) {
             }
         )
         Text(
-            text = "like you ${preferenceModel}!",
+            text = "like you ${isLikeYouValue}!",
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.bodyMedium,
             modifier = modifier.clickable {
-                preferencesViewModel.setLikeYou(!preferenceModel)
+                preferencesViewModel.setLikeYou(!isLikeYouValue)
             }
         )
     }

@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.infinite_android_base.CustomApplication
+import com.example.infinite_android_base.configs.KeyConfig
 import com.example.infinite_android_base.database.UserPreferences
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class PreferencesViewModel(private val userPreferences: UserPreferences) : ViewModel() {
-    val likeYou= userPreferences.isLinearLayout.stateIn(scope = viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = false)
+    lateinit var likeYou:Flow<Boolean>
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
@@ -23,9 +23,15 @@ class PreferencesViewModel(private val userPreferences: UserPreferences) : ViewM
         }
     }
 
-    fun setLikeYou(isLinearLayout: Boolean) {
+    init {
         viewModelScope.launch {
-            userPreferences.saveLayoutPreference(isLinearLayout)
+            likeYou= userPreferences.getBoolean(KeyConfig.IS_LIKE_YOU)
+        }
+    }
+
+    fun setLikeYou(isLikeYou: Boolean) {
+        viewModelScope.launch {
+            userPreferences.put(KeyConfig.IS_LIKE_YOU,isLikeYou)
         }
     }
 }

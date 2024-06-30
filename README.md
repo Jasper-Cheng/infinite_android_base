@@ -23,4 +23,4 @@ TODO List:
 9. 屏幕适配
 10. websocket
 11. 一键登录
-12. datastore获取值重新封装
+12. 语言切换即使显示
