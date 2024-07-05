@@ -10,17 +10,16 @@ DONE List:
 3. 权限(accompanist-permission)
 4. 主题(light、dark)、字体、颜色适配
 5. 屏幕密度、字体因子适配(CompositionLocalProvider)
+6. 国际化(中文、英文)
 
 TODO List:
 1. fragment管理(navigation)
 2. 通知(notifications)
 3. 桌面小组件(Glance)
-4. 国际化
-5. 应用报错、崩溃上报处理
-6. android启动动画和自适应图标(splashscreen)l
-7. 网络封装
-8. android签名
-9. 屏幕适配
-10. websocket
-11. 一键登录
-12. 语言切换即使显示
+4. 应用报错、崩溃上报处理
+5. android启动动画和自适应图标(splashscreen)l
+6. 网络封装
+7. android签名
+8. 屏幕适配
+9. websocket
+10. 一键登录

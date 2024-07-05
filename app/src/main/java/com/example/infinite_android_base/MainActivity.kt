@@ -89,7 +89,7 @@ class MainActivity : ComponentActivity() {
                                 Greeting()
                                 RoomTest()
                                 RequestPermissionUsingAccompanist()
-                                Internationalization()
+//                                Internationalization()
                             }
                         }
                     }
